@@ -1,0 +1,35 @@
+.bg-image {
+  position: relative;
+  width: 100%;
+  height: 400px; /* fix magasság minden képhez */
+  overflow: hidden;
+}
+
+.fixed-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* kitölti a keretet, megtartja az arányt, kilógó részt levágja */
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(190, 216, 232, 0.5);
+}
+
+.card-img-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.card-text-overlay {
+  color: white !important; /* mindig fehér */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
