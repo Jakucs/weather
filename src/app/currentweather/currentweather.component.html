@@ -1,10 +1,9 @@
-<!-- Tartalom -->
 <section class="pt-5" style="background-color: #f5f6f7; padding-top: 80px; min-height: 100vh;">
   <div class="container-fluid py-5 h-100">
     
     <!-- Nagy kártya középen -->
     <div class="row d-flex justify-content-center h-100">
-      <div class="col-md-10 col-lg-8 col-xl-6">
+      <div class="col-md-10 col-lg-8 col-xl-6" style="max-width: 650px; margin: 0 auto;">
 
         <div *ngIf="weatherData" class="card mt-5" style="border-radius: 40px; overflow: hidden;">
           <div class="bg-image">
@@ -24,16 +23,15 @@
       </div>
     </div>
 
-    <!-- Dailyweather teljes szélességen, de ugyanazon háttérrel -->
         <div class="row mt-5">
         <div class="col-12">
-          <app-weeklyweather></app-weeklyweather>
+          <app-weeklyweather *ngIf="!selectedDate"></app-weeklyweather>
         </div>
       </div>
 
     <div class="row mt-5">
       <div class="col-12">
-        <app-dailyweather></app-dailyweather>
+        <app-dailyweather *ngIf="selectedDate"></app-dailyweather>
       </div>
     </div>
 

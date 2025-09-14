@@ -16,14 +16,17 @@ export class WeeklyweatherComponent {
 
   constructor(private weatherApi: WeatherService) {}
 
-    ngOnInit() {
-    // ha a várost a service-ben tárolod (BehaviorSubject), itt feliratkozhatsz rá
-    this.weatherApi.city$.subscribe(city => {
-      if (city) {
-        this.city = city;
-        this.loadForecast();
+  ngOnInit() {
+    this.weatherApi.forecast$.subscribe(data => {
+      if (data) {
+        this.forecastData = data;
+        this.groupedForecast = this.groupForecastByDay(data.list);
       }
     });
+  }
+
+    selectDay(date: string) {
+    this.weatherApi.setSelectedDate(date);
   }
 
     loadForecast() {
@@ -49,15 +52,15 @@ groupForecastByDay(list: any[]): any[] {
     grouped[date].push(item);
   });
 
+  // átalakítás napi összesítéssé
   return Object.keys(grouped).map((date) => {
     const items = grouped[date];
 
-    // minimum és maximum
     const temps = items.map(i => i.main.temp);
     const minTemp = Math.min(...temps);
     const maxTemp = Math.max(...temps);
 
-    // leggyakoribb időjárás
+    // leggyakoribb időjárás típus (felhős, esős, stb.)
     const weatherCounts: { [key: string]: number } = {};
     items.forEach((i) => {
       const weather = i.weather[0].main;
@@ -76,6 +79,7 @@ groupForecastByDay(list: any[]): any[] {
   });
 }
 
+
   getWeatherIcon(main: string): string {
   switch (main) {
     case 'Clear': return 'https://img.icons8.com/?size=100&id=8EUmYhfLPTCF&format=png&color=000000';
@@ -84,6 +88,11 @@ groupForecastByDay(list: any[]): any[] {
     default: return 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu4.webp';
   }
 }
+
+onDayClick(date: string) {
+  this.weatherApi.setSelectedDate(date); // service-be beállítjuk
+}
+
 
 
 }

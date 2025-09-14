@@ -6,14 +6,19 @@
 
     <!-- Search bar -->
     <form class="d-flex ms-auto me-3" (submit)="$event.preventDefault(); searchWeather()">
-      <input 
-        class="form-control me-2" 
-        type="search" 
-        placeholder="Search city" 
-        aria-label="Search"
-        [(ngModel)]="cityName" 
-        name="city"
-      >
+    <input 
+      class="form-control me-2" 
+      type="search" 
+      placeholder="Search city" 
+      aria-label="Search"
+      [(ngModel)]="cityName" 
+      name="city"
+      (input)="onCityInput()"
+      list="cities"
+    >
+    <datalist id="cities">
+      <option *ngFor="let city of cityOptions" [value]="city"></option>
+    </datalist>
       <button class="btn btn-outline-light" type="button" (click)="searchWeather()">Search</button>
     </form>
   </div>

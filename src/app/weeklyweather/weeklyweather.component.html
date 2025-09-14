@@ -2,16 +2,13 @@
   <div class="container-fluid px-0">
     <div *ngIf="groupedForecast.length > 0" class="forecast-grid">
       
-      <!-- napi előrejelzés kártyák -->
-      <div class="card text-body" *ngFor="let day of groupedForecast">
+      <div class="card text-body card-clickable" *ngFor="let day of groupedForecast" (click)="onDayClick(day.date)" style="cursor: pointer;">
         <div class="card-body p-3" style="background-color: rgb(247, 243, 238);">
 
-          <!-- város neve -->
           <div class="d-flex mb-2">
             <small class="flex-grow-1">{{ forecastData.city.name }}</small>
           </div>
-
-          <!-- napi összesítés -->
+          
           <div class="d-flex flex-column text-center">
             <h6 class="mb-1 font-weight-bold">
               {{ day.maxTemp }}°C - {{ day.minTemp }}°C

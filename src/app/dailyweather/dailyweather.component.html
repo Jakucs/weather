@@ -1,35 +1,45 @@
 <section class="pt-5" style="background-color: #f5f6f7; padding-top: 80px; min-height: 100vh;">
   <div class="container-fluid px-0">
-    <div *ngIf="forecastData" class="forecast-grid">
-      <div class="card text-body" *ngFor="let item of forecastData.list">
-        <div class="card-body p-3" style="background-color: rgb(247, 243, 238);">
-          
 
-          <!-- város neve -->
-          <div class="d-flex mb-2">
-            <small class="flex-grow-1">{{ forecastData.city.name }}</small>
-          </div>
-        
+    <div class="mb-3">
+      <button class="btn btn-secondary" (click)="backToWeekly()">
+        ← Back to weekly forecast
+      </button>
+    </div>
 
-          <!-- előrejelzési lista -->
-          <div class="d-flex flex-column text-center">
-            <h6 class="mb-1 font-weight-bold">{{ item.main.temp }}°C</h6>
-            <span class="text-muted" style="font-size: 0.85rem;">{{ item.weather[0].main }}</span>
-
-            <div class="d-flex align-items-center justify-content-between mt-2">
-              <div style="font-size: 0.85rem;">
-                <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span>{{ item.wind.speed }} km/h</span></div>
-                <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span>{{ item.main.humidity }}% humdity</span></div>
-                <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <strong>{{ item.dt_txt | date:'yyyy-MM-dd HH:mm' }}</strong></div>
-              </div>
-              <div>
-                <img [src]="getWeatherIcon(item.weather[0].main)" class="weather-icon">
+    <div class="forecast-grid">
+      <!-- napi kártyák -->
+      <ng-container *ngIf="dailyItems.length > 0; else noData">
+        <div class="card text-body" *ngFor="let item of dailyItems">
+          <div class="card-body p-3" style="background-color: rgb(247, 243, 238);">
+            <div class="d-flex mb-2">
+              <small class="flex-grow-1">{{ forecastData.city.name }}</small>
+            </div>
+            <div class="d-flex flex-column text-center">
+              <h6 class="mb-1 font-weight-bold">{{ item.main.temp }}°C</h6>
+              <span class="text-muted" style="font-size: 0.85rem;">{{ item.weather[0].main }}</span>
+              <div class="d-flex align-items-center justify-content-between mt-2">
+                <div style="font-size: 0.85rem;">
+                  <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> {{ item.wind.speed }} km/h</div>
+                  <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> {{ item.main.humidity }}% humidity</div>
+                  <div><strong>{{ item.dt_txt | date:'yyyy-MM-dd HH:mm' }}</strong></div>
+                </div>
+                <div>
+                  <img [src]="getWeatherIcon(item.weather[0].main)" class="weather-icon">
+                </div>
               </div>
             </div>
-
           </div>
         </div>
-      </div>
+      </ng-container>
+
+      <!-- fallback üzenet -->
+      <ng-template #noData>
+        <div class="text-center text-muted py-4 w-100">
+          No day selected or no data available.
+        </div>
+      </ng-template>
     </div>
+
   </div>
 </section>
