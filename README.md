@@ -25,7 +25,7 @@ The purpose of the project is to demonstrate the use of **Angular components**, 
 ---
 
 ## 🛠️ Technologies
-- [Angular](https://angular.dev/) 16+
+- [Angular](https://angular.dev/) 19
 - [Bootstrap 5](https://getbootstrap.com/)
 - [OpenWeather API](https://openweathermap.org/)
 - [OpenWeather API](https://openweathermap.org/)
