@@ -1,0 +1,38 @@
+<section class="pt-5" style="background-color: #f5f6f7; padding-top: 80px; min-height: 100vh;">
+  <div class="container-fluid px-0">
+    <div *ngIf="groupedForecast.length > 0" class="forecast-grid">
+      
+      <!-- napi előrejelzés kártyák -->
+      <div class="card text-body" *ngFor="let day of groupedForecast">
+        <div class="card-body p-3" style="background-color: rgb(247, 243, 238);">
+
+          <!-- város neve -->
+          <div class="d-flex mb-2">
+            <small class="flex-grow-1">{{ forecastData.city.name }}</small>
+          </div>
+
+          <!-- napi összesítés -->
+          <div class="d-flex flex-column text-center">
+            <h6 class="mb-1 font-weight-bold">
+              {{ day.maxTemp }}°C - {{ day.minTemp }}°C
+            </h6>
+            <span class="text-muted" style="font-size: 0.85rem;">
+              {{ day.weather }}
+            </span>
+
+            <div class="d-flex align-items-center justify-content-between mt-2">
+              <div style="font-size: 0.85rem;">
+                <div><strong>{{ day.date | date:'EEEE, MMM d' }}</strong></div>
+              </div>
+              <div>
+                <img [src]="getWeatherIcon(day.weather)" class="weather-icon">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

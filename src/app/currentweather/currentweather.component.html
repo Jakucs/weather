@@ -1,26 +1,41 @@
 <!-- Tartalom -->
 <section class="pt-5" style="background-color: #f5f6f7; padding-top: 80px; min-height: 100vh;">
-  <div class="container py-5 h-100">
+  <div class="container-fluid py-5 h-100">
+    
+    <!-- Nagy kártya középen -->
     <div class="row d-flex justify-content-center h-100">
       <div class="col-md-10 col-lg-8 col-xl-6">
 
-        <!-- Card -->
-<div *ngIf="weatherData" class="card mt-5" style="border-radius: 40px; overflow: hidden;">
-  <div class="bg-image">
-    <img [src]="getWeatherImage()" class="fixed-img" alt="weather" />
-    <div class="mask"></div>
-  </div>
-  <div class="card-img-overlay card-text-overlay">
-    <h4 class="mb-0">{{weatherData.name}}</h4>
-    <p class="display-2 my-3">{{weatherData.main.temp}}°C</p>
-    <p class="mb-2">Feels Like: <strong>{{weatherData.main.feels_like}}°C</strong></p>
-    <p class="mb-2"><strong>{{weatherData.weather[0].main}}</strong></p>
-    <h5>Wind: {{weatherData.wind.speed}} m/s</h5>
-  </div>
-</div>
-
+        <div *ngIf="weatherData" class="card mt-5" style="border-radius: 40px; overflow: hidden;">
+          <div class="bg-image">
+            <img [src]="getWeatherImage()" class="fixed-img" alt="weather" />
+            <div class="mask"></div>
+          </div>
+          <div class="card-img-overlay card-text-overlay">
+            <h4 class="mb-0">{{weatherData.name}}</h4>
+            <p class="display-2 my-3">{{weatherData.main.temp}}°C</p>
+            <p class="mb-2">Feels Like: <strong>{{weatherData.main.feels_like}}°C</strong></p>
+            <p class="mb-2"><strong>{{weatherData.weather[0].main}}</strong></p>
+            <p class="mb-2"><strong>Wind: {{weatherData.wind.speed}} m/s</strong></p>
+            <p class="mb-2 mt-5"><strong>{{getLocalTime()}}</strong></p>
+          </div>
+        </div>
 
       </div>
     </div>
+
+    <!-- Dailyweather teljes szélességen, de ugyanazon háttérrel -->
+        <div class="row mt-5">
+        <div class="col-12">
+          <app-weeklyweather></app-weeklyweather>
+        </div>
+      </div>
+
+    <div class="row mt-5">
+      <div class="col-12">
+        <app-dailyweather></app-dailyweather>
+      </div>
+    </div>
+
   </div>
 </section>

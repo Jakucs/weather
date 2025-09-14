@@ -1,0 +1,55 @@
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body h6 {
+  white-space: nowrap; /* ne törjön sort */
+}
+
+.card-body img {
+  width: 60px;          /* fix kép méret */
+  height: 60px;
+  object-fit: contain;   /* ne torzuljon */
+  margin-top: 0.5rem;
+}
+
+.flex-grow-1 {
+  flex: none !important; /* ne nyújtózkodjon */
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* rugalmas oszlopok */
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.forecast-grid .card {
+  border-radius: 20px;
+}
+
+@media (max-width: 575px) {
+  .forecast-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .forecast-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .forecast-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .forecast-grid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}

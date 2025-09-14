@@ -12,7 +12,10 @@ export class WeatherService {
   private forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
     private weatherDataSubject = new BehaviorSubject<any>(null);
-  weatherData$ = this.weatherDataSubject.asObservable();
+    weatherData$ = this.weatherDataSubject.asObservable();
+
+    private citySubject = new BehaviorSubject<string>('');
+    city$ = this.citySubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -33,5 +36,9 @@ export class WeatherService {
 
   setWeatherData(data: any) {
     this.weatherDataSubject.next(data);
+  }
+
+    setCity(city: string) {
+    this.citySubject.next(city);
   }
 }

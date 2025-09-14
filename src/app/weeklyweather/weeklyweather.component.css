@@ -1,0 +1,16 @@
+.forecast-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center; /* vagy space-between */
+}
+
+.forecast-grid .card {
+  flex: 0 1 180px; /* minimum szélesség 180px, de lehet nagyobb */
+}
+
+.weather-icon {
+  width: 50px;        /* fix szélesség */
+  height: 50px;       /* fix magasság */
+  object-fit: contain; /* ne torzuljon */
+}

@@ -20,33 +20,44 @@ export class AppComponent {
     this.setWeatherByCurrentLocation();
   }
 
-  searchWeather() {
-    if (!this.cityName) return;
+searchWeather() {
+  if (!this.cityName) return;
 
-    this.weatherService.getCurrentWeatherByCity(this.cityName).subscribe({
-      next: (data) => this.weatherService.setWeatherData(data),
-      error: (err) => {
-        console.error('Error:', err);
-        this.setWeatherByCurrentLocation();
-      }
-    });
-  }
+  // itt tároljuk a service-ben a várost
+  this.weatherService.setCity(this.cityName);
 
-  setWeatherByCurrentLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          this.weatherService.getCurrentWeather(lat, lon).subscribe({
-            next: (data) => this.weatherService.setWeatherData(data),
-            error: (err) => console.error('Error fetching weather by location:', err)
-          });
-        },
-        (error) => console.error('Geolocation error:', error)
-      );
+  this.weatherService.getCurrentWeatherByCity(this.cityName).subscribe({
+    next: (data) => this.weatherService.setWeatherData(data),
+    error: (err) => {
+      console.error('Error:', err);
+      this.setWeatherByCurrentLocation();
     }
+  });
+}
+
+
+setWeatherByCurrentLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        this.weatherService.getCurrentWeather(lat, lon).subscribe({
+          next: (data) => {
+            this.weatherService.setWeatherData(data);
+            // várost is beállítjuk a service -ből
+            if (data?.name) {
+              this.weatherService.setCity(data.name);
+            }
+          },
+          error: (err) => console.error('Error fetching weather by location:', err)
+        });
+      },
+      (error) => console.error('Geolocation error:', error)
+    );
   }
+}
+
 }
 
 
